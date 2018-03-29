@@ -1,103 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.yjcycc.office.mapper.MyNoteMapper">
+<mapper namespace="org.yjcycc.office.mapper.DepartMapper">
 	
 	<!-- table name -->
 	<sql id="tableName">
-		yjcycc_mynote
+		yjcycc_depart_info
 	</sql>
 	
 	<!-- select field -->
 	<sql id="selectField">
-		note_id AS noteId,
-		note_title AS noteTitle,
-		note_content AS noteContent,
-		create_time AS createTime,
-		create_user AS createUser
+		depart_id AS departId,
+		depart_name AS departName,
+		principal_user AS principalUser,
+		connect_tel_no AS connectTelNo,
+		connect_mobile_tel_no AS connectMobileTelNo,
+		faxes,
+		branch_id AS branchId
 	</sql>
 	
 	<!-- add field -->
 	<sql id="addField">
-		note_id,
-		note_title,
-		note_content,
-		create_time,
-		create_user
+		depart_id,
+		depart_name,
+		principal_user,
+		connect_tel_no,
+		connect_mobile_tel_no,
+		faxes,
+		branch_id
 	</sql>
 	
 	<!-- field values -->
 	<sql id="fieldValue">
-		#{noteId},
-		#{noteTitle},
-		#{noteContent},
-		#{createTime},
-		#{createUser}
+		#{departId},
+		#{departName},
+		#{principalUser},
+		#{connectTelNo},
+		#{connectMobileTelNo},
+		#{faxes},
+		#{branchId}
 	</sql>
 	
 	<!-- getById -->
-	<select id="get" resultType="myNote" parameterType="int">
+	<select id="get" resultType="depart" parameterType="int">
 		SELECT 
 		<include refid="selectField"></include>
 		FROM 
 		<include refid="tableName"></include>
 		WHERE 
-			note_id = #{noteId}
+			depart_id = #{departId}
 	</select>
 	
 	<!-- getByEntity -->
-	<select id="get" resultType="myNote" parameterType="myNote">
+	<select id="get" resultType="depart" parameterType="depart">
 		SELECT 
 		<include refid="selectField"></include>
 		FROM 
 		<include refid="tableName"></include>
 		WHERE 1 = 1
-		<if test="noteId != null and noteId != ''">
-			AND note_id = #{noteId}
+		<if test="departId != null and departId != ''">
+			AND depart_id = #{departId}
 		</if>
-		<if test="noteTitle != null and noteTitle != ''">
-			AND note_title = #{noteTitle}
+		<if test="departName != null and departName != ''">
+			AND depart_name = #{departName}
 		</if>
 	</select>
 	
 	<!-- getByMap -->
-	<select id="getByMap" resultType="myNote" parameterType="map">
+	<select id="getByMap" resultType="depart" parameterType="map">
 		SELECT 
 		<include refid="selectField"></include>
 		FROM 
 		<include refid="tableName"></include>
 		WHERE 1 = 1
-		<if test="noteId != null and noteId != ''">
-			AND note_id = #{noteId}
+		<if test="departId != null and departId != ''">
+			AND depart_id = #{departId}
 		</if>
-		<if test="noteTitle != null and noteTitle != ''">
-			AND note_title = #{noteTitle}
+		<if test="departName != null and departName != ''">
+			AND depart_name = #{departName}
 		</if>
 	</select>
 	
 	<!-- 分页, 使用了pagehelper插件 -->
-	<select id="findPager" resultType="myNote" parameterType="myNote">
+	<select id="findPager" resultType="depart" parameterType="depart">
 		SELECT 
 		<include refid="selectField"></include>
 		FROM 
 		<include refid="tableName"></include>
         WHERE 1 = 1
-        	AND note_id = #{noteId}
+        	AND depart_id = #{departId}
 		ORDER BY insert_time DESC
 	</select>
 	
 	<!-- 分页, 使用了pagehelper插件 -->
-	<select id="findPagerByMap" resultType="myNote" parameterType="map">
+	<select id="findPagerByMap" resultType="depart" parameterType="map">
 		SELECT 
 		<include refid="selectField"></include>
 		FROM 
 		<include refid="tableName"></include>
         WHERE 1 = 1
-        	AND note_id = #{noteId}
+        	AND depart_id = #{departId}
 		ORDER BY insert_time DESC
 	</select>
 	
 	<!-- insert -->
-	<insert id="insert" parameterType="myNote">
+	<insert id="insert" parameterType="depart">
 		INSERT INTO 
 		<include refid="tableName"></include>
 		(
@@ -108,35 +114,35 @@
 	</insert>
 	
 	<!-- updateByEntity -->
-	<update id="update" parameterType="myNote">
+	<update id="update" parameterType="depart">
 		UPDATE <include refid="tableName"></include>
 		SET
-			note_title = #{noteTitle}
+			depart_name = #{departName}
 		WHERE
-			note_id = #{noteId}
+			depart_id = #{departId}
 	</update>
 	
 	<!-- updateByMap -->
 	<update id="updateByMap" parameterType="map">
 		UPDATE <include refid="tableName"></include>
 		SET
-			note_title = #{noteTitle}
+			depart_name = #{departName}
 		WHERE
-			note_id = #{noteId}
+			depart_id = #{departId}
 	</update>
 	
 	<!-- delete -->
-	<delete id="delete" parameterType="myNote">
+	<delete id="delete" parameterType="depart">
 		DELETE FROM <include refid="tableName"></include>
 		WHERE
-			note_id = #{noteId}
+			depart_id = #{departId}
 	</delete>
 	
 	<!-- batch delete -->
 	<delete id="batchDelete" parameterType="String">
 		DELETE FROM <include refid="tableName"></include>
 		WHERE
-			note_id in (${ids})
+			depart_id in (${ids})
 	</delete>
 	
 </mapper>
