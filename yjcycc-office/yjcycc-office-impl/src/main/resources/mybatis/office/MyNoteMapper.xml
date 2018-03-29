@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yjcycc.office.mapper.MyNoteMapper">
+	
+	<!-- table name -->
+	<sql id="tableName">
+		yjcycc_mynote
+	</sql>
+	
+	<!-- select field -->
+	<sql id="selectField">
+		note_id AS noteId,
+		note_title AS noteTitle,
+		note_content AS noteContent,
+		create_time AS createTime,
+		create_user AS createUser
+	</sql>
+	
+	<!-- add field -->
+	<sql id="addField">
+		note_id,
+		note_title,
+		note_content,
+		create_time,
+		create_user
+	</sql>
+	
+	<!-- field values -->
+	<sql id="FieldValue">
+		#{noteId},
+		#{noteTitle},
+		#{noteContent},
+		#{createTime},
+		#{createUser}
+	</sql>
+	
+	<!-- save -->
+	<insert id="save" parameterType="myNote">
+		insert into 
+		<include refid="tableName"></include>
+		(
+		<include refid="addField"></include>
+		) values (
+		<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- findById -->
+	<select id="findById" resultType="myNote" parameterType="int">
+		select 
+		<include refid="selectField"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			note_id = #{noteId}
+	</select>
+	
+	<!-- 分页, 使用了pagehelper插件 -->
+	<select id="findPager" resultType="myNote" parameterType="map">
+		select 
+		<include refid="selectField"></include>
+		from 
+		<include refid="tableName"></include>
+        where 1 = 1
+        	and note_id = #{noteId}
+		order by insert_time desc
+	</select>
+</mapper>
