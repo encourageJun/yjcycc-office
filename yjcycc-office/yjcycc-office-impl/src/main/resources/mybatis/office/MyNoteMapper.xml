@@ -34,16 +34,6 @@
 		#{createUser}
 	</sql>
 	
-	<!-- getById -->
-	<select id="get" resultType="myNote" parameterType="int">
-		SELECT 
-		<include refid="selectField"></include>
-		FROM 
-		<include refid="tableName"></include>
-		WHERE 
-			note_id = #{noteId}
-	</select>
-	
 	<!-- getByEntity -->
 	<select id="get" resultType="myNote" parameterType="myNote">
 		SELECT 

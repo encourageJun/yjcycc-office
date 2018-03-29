@@ -5,11 +5,10 @@ import java.rmi.RemoteException;
 import java.util.Map;
 
 import org.yjcycc.office.common.entity.Branch;
-
-import com.github.pagehelper.Page;
+import org.yjcycc.tools.common.Pager;
 
 public interface BranchService extends Remote {
 
-	Page<Branch> findPager(Map<String,Object> map, int pageNum, int pageSize) throws RemoteException;
+	Pager<Branch> findPager(Map<String,Object> map, int pageNum, int pageSize) throws RemoteException;
 	
 }

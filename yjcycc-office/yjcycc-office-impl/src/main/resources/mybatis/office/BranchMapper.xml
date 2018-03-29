@@ -28,16 +28,6 @@
 		#{branchShortName}
 	</sql>
 	
-	<!-- getById -->
-	<select id="get" resultType="branch" parameterType="int">
-		SELECT 
-		<include refid="selectField"></include>
-		FROM 
-		<include refid="tableName"></include>
-		WHERE 
-			branch_id = #{branchId}
-	</select>
-	
 	<!-- getByEntity -->
 	<select id="get" resultType="branch" parameterType="branch">
 		SELECT 
@@ -76,7 +66,6 @@
 		<include refid="tableName"></include>
         WHERE 1 = 1
         	AND branch_id = #{branchId}
-		ORDER BY insert_time DESC
 	</select>
 	
 	<!-- 分页, 使用了pagehelper插件 -->
@@ -86,8 +75,7 @@
 		FROM 
 		<include refid="tableName"></include>
         WHERE 1 = 1
-        	AND branch_id = #{branchId}
-		ORDER BY insert_time DESC
+        	<!-- AND branch_id = #{branchId} -->
 	</select>
 	
 	<!-- insert -->

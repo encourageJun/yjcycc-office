@@ -40,16 +40,6 @@
 		#{branchId}
 	</sql>
 	
-	<!-- getById -->
-	<select id="get" resultType="depart" parameterType="int">
-		SELECT 
-		<include refid="selectField"></include>
-		FROM 
-		<include refid="tableName"></include>
-		WHERE 
-			depart_id = #{departId}
-	</select>
-	
 	<!-- getByEntity -->
 	<select id="get" resultType="depart" parameterType="depart">
 		SELECT 

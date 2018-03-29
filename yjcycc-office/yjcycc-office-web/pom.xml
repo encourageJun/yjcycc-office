@@ -12,6 +12,14 @@
   <name>yjcycc-office-web Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+  
+  	<!-- yjcycc-office -->
+	<dependency>
+		<groupId>com.yjcycc.office</groupId>
+		<artifactId>yjcycc-office-api</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

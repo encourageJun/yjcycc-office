@@ -154,7 +154,7 @@ public class OfficeServer extends AbstractZookeeperClientRegister implements Lif
 		XxNode node = new XxNode();
 		node.setPcMode(ProducerConsumerEnum.PRODUCER);
 		node.setEnvriment(SystemConfig.getEnviroment());
-		node.setName("商品服务");
+		node.setName("办公服务");
 		node.setUip(this.usingIpPort);
 		//luoshan 20170503 - 灰度与流量路由
 		boolean result = createTreeNode(node);
