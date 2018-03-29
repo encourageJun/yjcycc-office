@@ -14,6 +14,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Component;
+import org.yjcycc.office.api.BranchService;
+import org.yjcycc.office.api.DepartService;
 import org.yjcycc.office.api.MyNoteService;
 import org.yjcycc.office.common.constant.ZkNodeConstant;
 import org.yjcycc.office.common.tools.config.OfficeRmiConfig;
@@ -127,6 +129,9 @@ public class OfficeServer extends AbstractZookeeperClientRegister implements Lif
 		// 曝露服务
 		RMIRegister register = new RMIRegister(port);
 		register.regist(MyNoteService.class, applicationContext.getBean(MyNoteService.class));
+		register.regist(BranchService.class, applicationContext.getBean(BranchService.class));
+		register.regist(DepartService.class, applicationContext.getBean(DepartService.class));
+		
 	}
 	
 	/**

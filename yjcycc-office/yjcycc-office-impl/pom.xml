@@ -15,12 +15,7 @@
   </properties>
   <dependencies>
   
-    <!-- yjcycc -->
-	<dependency>
-		<groupId>com.yjcycc.office</groupId>
-		<artifactId>yjcycc-office-common</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
+    <!-- yjcycc-office -->
 	<dependency>
 		<groupId>com.yjcycc.office</groupId>
 		<artifactId>yjcycc-office-api</artifactId>

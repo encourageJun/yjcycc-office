@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yjcycc.office.mapper.BranchMapper">
+	
+	<!-- table name -->
+	<sql id="tableName">
+		yjcycc_branch_info
+	</sql>
+	
+	<!-- select field -->
+	<sql id="selectField">
+		branch_id AS branchId,
+		branch_name AS branchName,
+		branch_short_name AS branchShortName
+	</sql>
+	
+	<!-- add field -->
+	<sql id="addField">
+		branch_id,
+		branch_name,
+		branch_short_name
+	</sql>
+	
+	<!-- field values -->
+	<sql id="fieldValue">
+		#{branchId},
+		#{branchName},
+		#{branchShortName}
+	</sql>
+	
+	<!-- getById -->
+	<select id="get" resultType="branch" parameterType="int">
+		SELECT 
+		<include refid="selectField"></include>
+		FROM 
+		<include refid="tableName"></include>
+		WHERE 
+			branch_id = #{branchId}
+	</select>
+	
+	<!-- getByEntity -->
+	<select id="get" resultType="branch" parameterType="branch">
+		SELECT 
+		<include refid="selectField"></include>
+		FROM 
+		<include refid="tableName"></include>
+		WHERE 1 = 1
+		<if test="branchId != null and branchId != ''">
+			AND branch_id = #{branchId}
+		</if>
+		<if test="branchName != null and branchName != ''">
+			AND branch_name = #{branchName}
+		</if>
+	</select>
+	
+	<!-- getByMap -->
+	<select id="getByMap" resultType="branch" parameterType="map">
+		SELECT 
+		<include refid="selectField"></include>
+		FROM 
+		<include refid="tableName"></include>
+		WHERE 1 = 1
+		<if test="branchId != null and branchId != ''">
+			AND branch_id = #{branchId}
+		</if>
+		<if test="branchName != null and branchName != ''">
+			AND branch_name = #{branchName}
+		</if>
+	</select>
+	
+	<!-- 分页, 使用了pagehelper插件 -->
+	<select id="findPager" resultType="branch" parameterType="branch">
+		SELECT 
+		<include refid="selectField"></include>
+		FROM 
+		<include refid="tableName"></include>
+        WHERE 1 = 1
+        	AND branch_id = #{branchId}
+		ORDER BY insert_time DESC
+	</select>
+	
+	<!-- 分页, 使用了pagehelper插件 -->
+	<select id="findPagerByMap" resultType="branch" parameterType="map">
+		SELECT 
+		<include refid="selectField"></include>
+		FROM 
+		<include refid="tableName"></include>
+        WHERE 1 = 1
+        	AND branch_id = #{branchId}
+		ORDER BY insert_time DESC
+	</select>
+	
+	<!-- insert -->
+	<insert id="insert" parameterType="branch">
+		INSERT INTO 
+		<include refid="tableName"></include>
+		(
+		<include refid="addField"></include>
+		) VALUES (
+		<include refid="fieldValue"></include>
+		)
+	</insert>
+	
+	<!-- updateByEntity -->
+	<update id="update" parameterType="branch">
+		UPDATE <include refid="tableName"></include>
+		SET
+			branch_name = #{branchName}
+		WHERE
+			branch_id = #{branchId}
+	</update>
+	
+	<!-- updateByMap -->
+	<update id="updateByMap" parameterType="map">
+		UPDATE <include refid="tableName"></include>
+		SET
+			branch_name = #{branchName}
+		WHERE
+			branch_id = #{branchId}
+	</update>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="branch">
+		DELETE FROM <include refid="tableName"></include>
+		WHERE
+			branch_id = #{branchId}
+	</delete>
+	
+	<!-- batch delete -->
+	<delete id="batchDelete" parameterType="String">
+		DELETE FROM <include refid="tableName"></include>
+		WHERE
+			branch_id in (${ids})
+	</delete>
+	
+</mapper>

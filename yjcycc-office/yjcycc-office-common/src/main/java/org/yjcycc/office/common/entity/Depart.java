@@ -4,6 +4,12 @@ import java.io.Serializable;
 
 import org.apache.ibatis.type.Alias;
 
+/**
+ * 部门
+ * @author Yangjun
+ *
+ */
+
 @Alias("depart")
 public class Depart implements Serializable {
 

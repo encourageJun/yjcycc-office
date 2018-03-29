@@ -5,6 +5,12 @@ import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
+/**
+ * 便签
+ * @author Yangjun
+ *
+ */
+
 @Alias("myNote")
 public class MyNote implements Serializable{
 
