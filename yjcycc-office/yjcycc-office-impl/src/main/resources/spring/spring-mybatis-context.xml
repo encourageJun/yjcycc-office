@@ -52,9 +52,9 @@
 		<property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"/>
 		<property name="typeAliasesPackage" value="org.yjcycc.office.common.entity,org.yjcycc.office.dto"/>
 		<property name="mapperLocations">
-			<list>  
+			<array>  
 	            <value>classpath*:/mybatis/office/*.xml</value>
-	        </list> 
+	        </array> 
 		</property>
 		<property name="plugins">
 	        <array>
@@ -63,10 +63,10 @@
 	                <property name="properties">
 	                    <value>
 	                        helperDialect=mysql
-	                        reasonable=true
+	                        reasonable=false
 	                        supportMethodsArguments=true
 	                        params=count=countSql
-	                        autoRuntimeDialect=true
+	                        autoRuntimeDialect=false
 	                    </value>
 	                </property>
 	            </bean>

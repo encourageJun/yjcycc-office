@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.yjcycc.office.api.BranchService;
 import org.yjcycc.office.common.entity.Branch;
+import org.yjcycc.office.common.util.PagerUtil;
 import org.yjcycc.office.mapper.BranchMapper;
 import org.yjcycc.tools.common.Pager;
-import org.yjcycc.tools.common.util.PagerUtil;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -26,14 +26,8 @@ public class BranchServiceImpl implements BranchService {
 		if (branchList == null) {
 			return null;
 		}
-		PageInfo<Branch> page = new PageInfo<Branch>(branchList);
-//		Page<Branch> page = (Page<Branch>) branchList;
-//		Pager<Branch> pager = new Pager<Branch>();
-//		pager.setPageNum(pageNum);
-//		pager.setPageSize(pageSize);
-//		pager.setTotalCount(new Long(page.getTotal()).intValue());
-//		pager.setList(branchList);
-		return PagerUtil.getPager(page);
+		
+		return PagerUtil.getPager(new PageInfo<Branch>(branchList));
 	}
 
 	@Autowired
