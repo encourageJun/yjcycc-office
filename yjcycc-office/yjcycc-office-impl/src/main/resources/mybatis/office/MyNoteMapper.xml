@@ -9,7 +9,7 @@
 	
 	<!-- select field -->
 	<sql id="selectField">
-		note_id AS noteId,
+		id AS id,
 		note_title AS noteTitle,
 		note_content AS noteContent,
 		create_time AS createTime,
@@ -18,7 +18,7 @@
 	
 	<!-- add field -->
 	<sql id="addField">
-		note_id,
+		id,
 		note_title,
 		note_content,
 		create_time,
@@ -27,7 +27,7 @@
 	
 	<!-- field values -->
 	<sql id="fieldValue">
-		#{noteId},
+		#{id},
 		#{noteTitle},
 		#{noteContent},
 		#{createTime},
@@ -41,8 +41,8 @@
 		FROM 
 		<include refid="tableName"></include>
 		WHERE 1 = 1
-		<if test="noteId != null and noteId != ''">
-			AND note_id = #{noteId}
+		<if test="id != null and id != ''">
+			AND id = #{id}
 		</if>
 		<if test="noteTitle != null and noteTitle != ''">
 			AND note_title = #{noteTitle}
@@ -56,8 +56,8 @@
 		FROM 
 		<include refid="tableName"></include>
 		WHERE 1 = 1
-		<if test="noteId != null and noteId != ''">
-			AND note_id = #{noteId}
+		<if test="id != null and id != ''">
+			AND id = #{id}
 		</if>
 		<if test="noteTitle != null and noteTitle != ''">
 			AND note_title = #{noteTitle}
@@ -71,7 +71,7 @@
 		FROM 
 		<include refid="tableName"></include>
         WHERE 1 = 1
-        	AND note_id = #{noteId}
+        	AND id = #{id}
 		ORDER BY insert_time DESC
 	</select>
 	
@@ -82,7 +82,7 @@
 		FROM 
 		<include refid="tableName"></include>
         WHERE 1 = 1
-        	AND note_id = #{noteId}
+        	AND id = #{id}
 		ORDER BY insert_time DESC
 	</select>
 	
@@ -103,7 +103,7 @@
 		SET
 			note_title = #{noteTitle}
 		WHERE
-			note_id = #{noteId}
+			id = #{id}
 	</update>
 	
 	<!-- updateByMap -->
@@ -112,21 +112,21 @@
 		SET
 			note_title = #{noteTitle}
 		WHERE
-			note_id = #{noteId}
+			id = #{id}
 	</update>
 	
 	<!-- delete -->
 	<delete id="delete" parameterType="myNote">
 		DELETE FROM <include refid="tableName"></include>
 		WHERE
-			note_id = #{noteId}
+			id = #{id}
 	</delete>
 	
 	<!-- batch delete -->
 	<delete id="batchDelete" parameterType="String">
 		DELETE FROM <include refid="tableName"></include>
 		WHERE
-			note_id in (${ids})
+			id in (${ids})
 	</delete>
 	
 </mapper>

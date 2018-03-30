@@ -11,20 +11,21 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.yjcycc.office.api.BranchService;
-import org.yjcycc.office.common.entity.Branch;
+import org.yjcycc.office.api.DepartService;
+import org.yjcycc.office.common.entity.Depart;
 import org.yjcycc.office.common.rmi.RMIClient;
+import org.yjcycc.office.dto.DepartDTO;
 import org.yjcycc.tools.common.Pager;
 
 @RestController
-@RequestMapping(value = "/branch")
-public class BranchController {
+@RequestMapping(value = "/depart")
+public class DepartController {
 
-	private Logger logger = Logger.getLogger(BranchController.class);
+	private Logger logger = Logger.getLogger(DepartController.class);
 	
 	/**
 	 * 部门列表
-	 * @url /branch/list
+	 * @url /depart/list
 	 * @param request
 	 * @return json
 	 * {
@@ -38,7 +39,12 @@ public class BranchController {
      *		  {
      *  		"branchId": 1,
      *  		"branchName": "aa",
-     *			"branchShortName": "a"
+     *			"departId": 1,
+     *			"departName": "aa",
+     *			"principalUser": "yangjun",
+     *			"connectTelNo": "020-11112222",
+     *			"connectMobileTelNo": "13025139969",
+     *			"faxes": "encourage_jun@163.com"
      *		  }
      *		]
 	 *   }
@@ -49,6 +55,7 @@ public class BranchController {
 	 *   1 服务器内部错误 
 	 * }
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/list")
 	public Object list(HttpServletRequest request) {
 		logger.info("start");
@@ -58,11 +65,10 @@ public class BranchController {
 		int pageNum = StringUtils.isBlank(request.getParameter("pageNum")) ? 1 : Integer.parseInt(request.getParameter("pageNum"));
 		int pageSize = StringUtils.isBlank(request.getParameter("pageSize")) ? 10 : Integer.parseInt(request.getParameter("pageSize"));
 		
-		BranchService branchService = (BranchService)RMIClient.getRemoteService(BranchService.class);
-		
+		DepartService departService = (DepartService)RMIClient.getRemoteService(DepartService.class);
 		Map<String,Object> map = new HashMap<String,Object>();
 		try {
-			Pager<Branch> pager = branchService.findPager(map, pageNum, pageSize);
+			Pager<DepartDTO> pager = departService.findPager(map, pageNum, pageSize);
 			pro.put("pager", pager);
 		} catch (RemoteException e) {
 			logger.error(e.getMessage(), e);
@@ -70,13 +76,13 @@ public class BranchController {
 			return pro;
 		}
 		
-		pro.put("status", 0); // 成功
+		pro.put("status", 0);
 		return pro;
 	}
 	
 	/**
-	 * 新增/修改机构
-	 * @url /branch/save
+	 * 新增/修改部门
+	 * @url /depart/save
 	 * @param request
 	 * @return json
 	 * {
@@ -86,119 +92,71 @@ public class BranchController {
 	 * {
 	 *   0 成功 
 	 *   1 服务器内部错误 
-	 *   2 参数branchName或branchShortName不能为空
-	 *   3 参数branchId对应的数据不存在 
-	 *   4 机构名称重复
+	 *   2 参数branchId/departName/principalUser不能为空
+	 *   3 参数departId对应的数据不存在 
+	 *   4 部门名称重复
 	 * }
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/save")
 	public Object save(HttpServletRequest request) {
 		logger.info("start");
 		
 		Properties pro = new Properties();
 		
+		Integer departId = StringUtils.isBlank(request.getParameter("departId")) ? null : Integer.parseInt(request.getParameter("departId"));
 		Integer branchId = StringUtils.isBlank(request.getParameter("branchId")) ? null : Integer.parseInt(request.getParameter("branchId"));
-		String branchName = request.getParameter("branchName");
-		String branchShortName = request.getParameter("branchShortName");
-		if (StringUtils.isBlank(branchName) || StringUtils.isBlank(branchShortName)) {
-			pro.put("status", 2); // 参数branchName或branchShortName不能为空
+		String connectTelNo = request.getParameter("connectTelNo");
+		String connectMobileTelNo = request.getParameter("connectMobileTelNo");
+		String faxes = request.getParameter("faxes");
+		String departName = request.getParameter("departName");
+		String principalUser = request.getParameter("principalUser");
+		if (branchId == null || StringUtils.isBlank(departName) || StringUtils.isBlank(principalUser)) {
+			pro.put("status", 2); // 参数branchId/departName/principalUser不能为空
 			return pro;
 		}
-		Branch branch = new Branch();
+		Depart depart = new Depart();
 		
-		BranchService branchService = (BranchService)RMIClient.getRemoteService(BranchService.class);
+		DepartService departService = (DepartService)RMIClient.getRemoteService(DepartService.class);
 		
-		if (branchId == null) {
-			branch.setBranchName(branchName);
+		if (departId == null) {
+			depart.setDepartName(departName);
 			try {
-				branch = branchService.get(branch);
+				depart = (Depart) departService.get(depart);
 			} catch (RemoteException e) {
 				logger.error(e.getMessage(), e);
-				pro.put("status", 1); // 服务器内部错误
+				pro.put("status", 1); // 服务器内部错误 
 				return pro;
 			}
-			if (branch != null) {
-				pro.put("status", 4); // 机构名称重复
+			if (depart != null) {
+				pro.put("status", 4); // 部门名称重复
 				return pro;
 			}
-			
-			branch = new Branch();
+			depart = new Depart();
 		} else {
-			branch.setId(branchId);
+			depart.setId(departId);
 			try {
-				branch = branchService.get(branch);
+				depart = (Depart) departService.get(depart);
 			} catch (RemoteException e) {
 				logger.error(e.getMessage(), e);
 				pro.put("status", 1); // 服务器内部错误
 				return pro;
 			}
 			
-			if (branch == null) {
-				pro.put("status", 3); // 参数branchId对应的数据不存在
+			if (depart == null) {
+				pro.put("status", 3); // 参数departId对应的数据不存在
 				return pro;
 			}
 		}
 		
-		branch.setBranchName(branchName);
-		branch.setBranchShortName(branchShortName);
+		depart.setDepartName(departName);
+		depart.setBranchId(branchId);
+		depart.setPrincipalUser(principalUser);
+		depart.setConnectTelNo(connectTelNo);
+		depart.setConnectMobileTelNo(connectMobileTelNo);
+		depart.setFaxes(faxes);
 		try {
-			branchService.saveOrUpdate(branch);
-		} catch (RemoteException e) {
-			logger.error(e.getMessage(), e);
-			pro.put("status", 1); // 服务器内部错误
-			return pro;
-		}
-		
-		pro.put("status", 0); // 保存成功
-		return pro;
-	}
-	
-	/**
-	 * 删除机构
-	 * @url /branch/delete
-	 * @param request
-	 * @return json
-	 * {
-	 *   status : 服务状态码
-	 * }
-	 * @服务状态码
-	 * {
-	 *   0 成功 
-	 *   1 服务器内部错误 
-	 *   2 参数branchId不能为空 
-	 *   3 参数branchId对应的数据不存在 
-	 * }
-	 */
-	@RequestMapping(value = "/delete")
-	public Object delete(HttpServletRequest request) {
-		logger.info("start");
-		
-		Properties pro = new Properties();
-		
-		Integer branchId = StringUtils.isBlank(request.getParameter("branchId")) ? null : Integer.parseInt(request.getParameter("branchId"));
-		if (branchId == null) {
-			pro.put("status", 2); // 参数branchId不能为空
-			return pro;
-		}
-		
-		BranchService branchService = (BranchService)RMIClient.getRemoteService(BranchService.class);
-		
-		Branch branch = new Branch();
-		branch.setId(branchId);
-		try {
-			branch = branchService.get(branch);
-		} catch (RemoteException e) {
-			logger.error(e.getMessage(), e);
-			pro.put("status", 1); // 服务器内部错误
-			return pro;
-		}
-		if (branch == null) {
-			pro.put("status", 3); // 参数branchId对应的数据不存在
-			return pro;
-		}
-		
-		try {
-			branchService.delete(branch);
+			departService.saveOrUpdate(depart);
 		} catch (RemoteException e) {
 			logger.error(e.getMessage(), e);
 			pro.put("status", 1); // 服务器内部错误
@@ -208,5 +166,63 @@ public class BranchController {
 		pro.put("status", 0);
 		return pro;
 	}
+	
+	/**
+	 * 删除部门
+	 * @url /depart/delete
+	 * @param request
+	 * @return json
+	 * {
+	 *   status : 服务状态码
+	 * }
+	 * @服务状态码
+	 * {
+	 *   0 成功 
+	 *   1 服务器内部错误 
+	 *   2 参数departId不能为空 
+	 *   3 参数departId对应的数据不存在 
+	 * }
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/delete")
+	public Object delete(HttpServletRequest request) {
+		logger.info("start");
+		
+		Properties pro = new Properties();
+		
+		Integer departId = StringUtils.isBlank(request.getParameter("departId")) ? null : Integer.parseInt(request.getParameter("departId"));
+		if (departId == null) {
+			pro.put("status", 2); // 参数departId不能为空
+			return pro;
+		}
+		
+		DepartService departService = (DepartService)RMIClient.getRemoteService(DepartService.class);
+		Depart depart = new Depart();
+		depart.setId(departId);		
+		try {
+			depart = (Depart) departService.get(depart);
+		} catch (RemoteException e) {
+			logger.error(e.getMessage(), e);
+			pro.put("status", 1); // 服务器内部错误
+			return pro;
+		}
+		if (depart == null) {
+			pro.put("status", 3); // 参数departId对应的数据不存在
+			return pro;
+		}
+		
+		try {
+			departService.delete(depart);
+		} catch (RemoteException e) {
+			logger.error(e.getMessage(), e);
+			pro.put("status", 1); // 服务器内部错误
+			return pro;
+		}
+		
+		pro.put("status", 0);
+		return pro;
+	}
+	
+	
 	
 }

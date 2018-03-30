@@ -21,7 +21,7 @@ public class Branch implements Serializable {
 	/**
 	 * 机构id
 	 */
-	private Integer branchId;
+	private Integer id;
 	
 	/**
 	 * 机构名称
@@ -32,14 +32,6 @@ public class Branch implements Serializable {
 	 * 机构简称
 	 */
 	private String branchShortName;
-
-	public Integer getBranchId() {
-		return branchId;
-	}
-
-	public void setBranchId(Integer branchId) {
-		this.branchId = branchId;
-	}
 
 	public String getBranchName() {
 		return branchName;
@@ -55,6 +47,14 @@ public class Branch implements Serializable {
 
 	public void setBranchShortName(String branchShortName) {
 		this.branchShortName = branchShortName;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 }

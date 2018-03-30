@@ -21,7 +21,7 @@ public class Depart implements Serializable {
 	/**
 	 * 部门id
 	 */
-	private Integer departId;
+	private Integer id;
 	
 	/**
 	 * 部门名称
@@ -52,14 +52,6 @@ public class Depart implements Serializable {
 	 * 所属机构id
 	 */
 	private Integer branchId;
-
-	public Integer getDepartId() {
-		return departId;
-	}
-
-	public void setDepartId(Integer departId) {
-		this.departId = departId;
-	}
 
 	public String getDepartName() {
 		return departName;
@@ -107,6 +99,14 @@ public class Depart implements Serializable {
 
 	public void setPrincipalUser(String principalUser) {
 		this.principalUser = principalUser;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 }

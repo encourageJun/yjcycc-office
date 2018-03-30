@@ -9,7 +9,7 @@
 	
 	<!-- select field -->
 	<sql id="selectField">
-		depart_id AS departId,
+		id AS id,
 		depart_name AS departName,
 		principal_user AS principalUser,
 		connect_tel_no AS connectTelNo,
@@ -18,9 +18,21 @@
 		branch_id AS branchId
 	</sql>
 	
+	<!-- select field -->
+	<sql id="selectDTOField">
+		d.id AS id,
+		d.depart_name AS departName,
+		d.principal_user AS principalUser,
+		d.connect_tel_no AS connectTelNo,
+		d.connect_mobile_tel_no AS connectMobileTelNo,
+		d.faxes,
+		d.branch_id AS branchId,
+		b.branch_name AS branchName
+	</sql>
+	
 	<!-- add field -->
 	<sql id="addField">
-		depart_id,
+		id,
 		depart_name,
 		principal_user,
 		connect_tel_no,
@@ -31,7 +43,7 @@
 	
 	<!-- field values -->
 	<sql id="fieldValue">
-		#{departId},
+		#{id},
 		#{departName},
 		#{principalUser},
 		#{connectTelNo},
@@ -43,53 +55,57 @@
 	<!-- getByEntity -->
 	<select id="get" resultType="depart" parameterType="depart">
 		SELECT 
-		<include refid="selectField"></include>
+			<include refid="selectField"></include>
 		FROM 
-		<include refid="tableName"></include>
+			<include refid="tableName"></include>
 		WHERE 1 = 1
-		<if test="departId != null and departId != ''">
-			AND depart_id = #{departId}
-		</if>
-		<if test="departName != null and departName != ''">
+			<if test="id != null and id != ''">
+			AND id = #{id}
+			</if>
+			<if test="departName != null and departName != ''">
 			AND depart_name = #{departName}
-		</if>
+			</if>
 	</select>
 	
 	<!-- getByMap -->
 	<select id="getByMap" resultType="depart" parameterType="map">
 		SELECT 
-		<include refid="selectField"></include>
+			<include refid="selectField"></include>
 		FROM 
-		<include refid="tableName"></include>
+			<include refid="tableName"></include>
 		WHERE 1 = 1
-		<if test="departId != null and departId != ''">
-			AND depart_id = #{departId}
-		</if>
-		<if test="departName != null and departName != ''">
+			<if test="id != null and id != ''">
+			AND id = #{id}
+			</if>
+			<if test="departName != null and departName != ''">
 			AND depart_name = #{departName}
-		</if>
+			</if>
 	</select>
 	
 	<!-- 分页, 使用了pagehelper插件 -->
-	<select id="findPager" resultType="depart" parameterType="depart">
+	<select id="findPager" resultType="departDTO" parameterType="depart">
 		SELECT 
-		<include refid="selectField"></include>
+			<include refid="selectDTOField"></include>
 		FROM 
-		<include refid="tableName"></include>
+			yjcycc_depart_info d
+		LEFT JOIN yjcycc_branch_info b 
+			ON b.id = d.branch_id
         WHERE 1 = 1
-        	AND depart_id = #{departId}
-		ORDER BY insert_time DESC
+        	<!-- AND id = #{id} -->
+		ORDER BY depart_name ASC
 	</select>
 	
 	<!-- 分页, 使用了pagehelper插件 -->
-	<select id="findPagerByMap" resultType="depart" parameterType="map">
+	<select id="findPagerByMap" resultType="departDTO" parameterType="map">
 		SELECT 
-		<include refid="selectField"></include>
+			<include refid="selectDTOField"></include>
 		FROM 
-		<include refid="tableName"></include>
+			yjcycc_depart_info d
+		LEFT JOIN yjcycc_branch_info b 
+			ON b.id = d.branch_id
         WHERE 1 = 1
-        	AND depart_id = #{departId}
-		ORDER BY insert_time DESC
+        	<!-- AND id = #{id} -->
+		ORDER BY depart_name ASC
 	</select>
 	
 	<!-- insert -->
@@ -109,7 +125,7 @@
 		SET
 			depart_name = #{departName}
 		WHERE
-			depart_id = #{departId}
+			id = #{id}
 	</update>
 	
 	<!-- updateByMap -->
@@ -118,21 +134,21 @@
 		SET
 			depart_name = #{departName}
 		WHERE
-			depart_id = #{departId}
+			id = #{id}
 	</update>
 	
 	<!-- delete -->
 	<delete id="delete" parameterType="depart">
 		DELETE FROM <include refid="tableName"></include>
 		WHERE
-			depart_id = #{departId}
+			id = #{id}
 	</delete>
 	
 	<!-- batch delete -->
 	<delete id="batchDelete" parameterType="String">
 		DELETE FROM <include refid="tableName"></include>
 		WHERE
-			depart_id in (${ids})
+			id in (${ids})
 	</delete>
 	
 </mapper>

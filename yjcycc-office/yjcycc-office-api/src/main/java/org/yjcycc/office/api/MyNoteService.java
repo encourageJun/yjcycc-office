@@ -1,7 +1,7 @@
 package org.yjcycc.office.api;
 
-import java.rmi.Remote;
+import org.yjcycc.office.common.entity.MyNote;
 
-public interface MyNoteService extends Remote {
+public interface MyNoteService extends BaseService<MyNote> {
 
 }

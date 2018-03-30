@@ -9,21 +9,21 @@
 	
 	<!-- select field -->
 	<sql id="selectField">
-		branch_id AS branchId,
+		id AS id,
 		branch_name AS branchName,
 		branch_short_name AS branchShortName
 	</sql>
 	
 	<!-- add field -->
 	<sql id="addField">
-		branch_id,
+		id,
 		branch_name,
 		branch_short_name
 	</sql>
 	
 	<!-- field values -->
 	<sql id="fieldValue">
-		#{branchId},
+		#{id},
 		#{branchName},
 		#{branchShortName}
 	</sql>
@@ -35,8 +35,8 @@
 		FROM 
 		<include refid="tableName"></include>
 		WHERE 1 = 1
-		<if test="branchId != null and branchId != ''">
-			AND branch_id = #{branchId}
+		<if test="id != null and id != ''">
+			AND id = #{id}
 		</if>
 		<if test="branchName != null and branchName != ''">
 			AND branch_name = #{branchName}
@@ -51,8 +51,8 @@
 		FROM 
 		<include refid="tableName"></include>
 		WHERE 1 = 1
-		<if test="branchId != null and branchId != ''">
-			AND branch_id = #{branchId}
+		<if test="id != null and id != ''">
+			AND id = #{id}
 		</if>
 		<if test="branchName != null and branchName != ''">
 			AND branch_name = #{branchName}
@@ -67,7 +67,7 @@
 		FROM 
 		<include refid="tableName"></include>
         WHERE 1 = 1
-        	<!-- AND branch_id = #{branchId} -->
+        	<!-- AND id = #{id} -->
         ORDER BY branch_name asc
 	</select>
 	
@@ -78,7 +78,7 @@
 		FROM 
 		<include refid="tableName"></include>
         WHERE 1 = 1
-        	<!-- AND branch_id = #{branchId} -->
+        	<!-- AND id = #{id} -->
         ORDER BY branch_name asc
 	</select>
 	
@@ -99,7 +99,7 @@
 		SET
 			branch_name = #{branchName}
 		WHERE
-			branch_id = #{branchId}
+			id = #{id}
 	</update>
 	
 	<!-- updateByMap -->
@@ -108,21 +108,21 @@
 		SET
 			branch_name = #{branchName}
 		WHERE
-			branch_id = #{branchId}
+			id = #{id}
 	</update>
 	
 	<!-- delete -->
 	<delete id="delete" parameterType="branch">
 		DELETE FROM <include refid="tableName"></include>
 		WHERE
-			branch_id = #{branchId}
+			id = #{id}
 	</delete>
 	
 	<!-- batch delete -->
 	<delete id="batchDelete" parameterType="String">
 		DELETE FROM <include refid="tableName"></include>
 		WHERE
-			branch_id in (${ids})
+			id in (${ids})
 	</delete>
 	
 </mapper>

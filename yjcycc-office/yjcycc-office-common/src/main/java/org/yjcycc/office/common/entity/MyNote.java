@@ -22,7 +22,7 @@ public class MyNote implements Serializable{
 	/**
 	 * 便签id
 	 */
-	private Integer noteId;
+	private Integer id;
 	
 	/**
 	 * 便签标题
@@ -43,14 +43,6 @@ public class MyNote implements Serializable{
 	 * 创建人
 	 */
 	private String createUser;
-
-	public Integer getNoteId() {
-		return noteId;
-	}
-
-	public void setNoteId(Integer noteId) {
-		this.noteId = noteId;
-	}
 
 	public String getNoteTitle() {
 		return noteTitle;
@@ -82,6 +74,14 @@ public class MyNote implements Serializable{
 
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 }
