@@ -14,4 +14,6 @@ public interface BaseService<T> extends Remote {
 	
 	void delete(T entity) throws RemoteException;
 	
+	void saveOrUpdate(T entity) throws RemoteException;
+	
 }

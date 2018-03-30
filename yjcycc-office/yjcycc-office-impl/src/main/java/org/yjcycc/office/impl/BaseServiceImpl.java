@@ -45,20 +45,36 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 	
 	public void saveOrUpdate(T entity) throws RemoteException {
 		try {
-			Field field = entity.getClass().getField("id");
-			Integer id = (Integer) field.get(entity);
+			Field idField = entity.getClass().getDeclaredField( "id" ) ;
+			idField.setAccessible( true );
+			Integer id = (Integer) idField.get(entity);
 			if (id == null || id == 0) {
 				baseMapper.insert(entity);
 			} else {
 				baseMapper.update(entity);
 			}
+			
+			//创建类
+			/*Class<?> class1 = Class.forName("com.app.Person");
+
+            //取得本类的全部属性
+            Field[] fields = entity.getClass().getDeclaredFields();
+
+            for (Field field : fields) {
+                System.out.println( field );
+                //打印 person 的属性值
+                System.out.println( field.get( person ));
+            }*/
+			
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SecurityException e) {
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
