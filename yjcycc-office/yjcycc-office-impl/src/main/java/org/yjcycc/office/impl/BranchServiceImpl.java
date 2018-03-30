@@ -29,6 +29,25 @@ public class BranchServiceImpl implements BranchService {
 		
 		return PagerUtil.getPager(new PageInfo<Branch>(branchList));
 	}
+	
+	@Override
+	public void saveOrUpdate(Branch branch) throws RemoteException {
+		if (branch.getBranchId() == null || branch.getBranchId() == 0) {
+			branchMapper.insert(branch);
+		} else {
+			branchMapper.update(branch);
+		}
+	}
+	
+	@Override
+	public Branch get(Branch branch) throws RemoteException {
+		return branchMapper.get(branch);
+	}
+	
+	@Override
+	public void delete(Branch branch) throws RemoteException {
+		branchMapper.delete(branch);
+	}
 
 	@Autowired
 	private BranchMapper branchMapper;

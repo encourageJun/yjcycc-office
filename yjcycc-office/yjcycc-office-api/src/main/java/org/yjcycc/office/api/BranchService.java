@@ -11,4 +11,10 @@ public interface BranchService extends Remote {
 
 	Pager<Branch> findPager(Map<String,Object> map, int pageNum, int pageSize) throws RemoteException;
 	
+	void saveOrUpdate(Branch branch) throws RemoteException;
+	
+	Branch get(Branch branch) throws RemoteException;
+	
+	void delete(Branch branch) throws RemoteException;
+	
 }

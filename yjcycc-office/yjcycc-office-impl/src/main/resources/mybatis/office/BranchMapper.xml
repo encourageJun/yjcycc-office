@@ -41,6 +41,7 @@
 		<if test="branchName != null and branchName != ''">
 			AND branch_name = #{branchName}
 		</if>
+		limit 1
 	</select>
 	
 	<!-- getByMap -->
@@ -56,6 +57,7 @@
 		<if test="branchName != null and branchName != ''">
 			AND branch_name = #{branchName}
 		</if>
+		limit 1
 	</select>
 	
 	<!-- 分页, 使用了pagehelper插件 -->
@@ -65,7 +67,8 @@
 		FROM 
 		<include refid="tableName"></include>
         WHERE 1 = 1
-        	AND branch_id = #{branchId}
+        	<!-- AND branch_id = #{branchId} -->
+        ORDER BY branch_name asc
 	</select>
 	
 	<!-- 分页, 使用了pagehelper插件 -->
@@ -76,6 +79,7 @@
 		<include refid="tableName"></include>
         WHERE 1 = 1
         	<!-- AND branch_id = #{branchId} -->
+        ORDER BY branch_name asc
 	</select>
 	
 	<!-- insert -->
