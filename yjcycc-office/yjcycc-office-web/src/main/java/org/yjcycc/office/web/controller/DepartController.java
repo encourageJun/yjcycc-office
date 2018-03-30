@@ -37,7 +37,7 @@ public class DepartController {
      *		"totalCount": 1,
      *		"list": [
      *		  {
-     *  		"branchId": 1,
+     *  		"id": 1,
      *  		"branchName": "aa",
      *			"departId": 1,
      *			"departName": "aa",

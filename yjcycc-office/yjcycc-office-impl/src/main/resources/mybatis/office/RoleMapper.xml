@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yjcycc.office.mapper.RoleMapper">
+	
+	<!-- table name -->
+	<sql id="tableName">
+		yjcycc_role_info
+	</sql>
+	
+	<!-- select field -->
+	<sql id="selectField">
+		id,
+		role_name AS roleName,
+		role_desc AS roleDesc
+	</sql>
+	
+	<!-- add field -->
+	<sql id="addField">
+		id,
+		role_name,
+		role_desc
+	</sql>
+	
+	<!-- field values -->
+	<sql id="fieldValue">
+		#{id},
+		#{roleName},
+		#{roleDesc}
+	</sql>
+	
+	<!-- getByEntity -->
+	<select id="get" resultType="role" parameterType="role">
+		SELECT 
+		<include refid="selectField"></include>
+		FROM 
+		<include refid="tableName"></include>
+		WHERE 1 = 1
+		<if test="id != null and id != ''">
+			AND id = #{id}
+		</if>
+		<if test="roleName != null and roleName != ''">
+			AND role_name = #{roleName}
+		</if>
+		limit 1
+	</select>
+	
+	<!-- getByMap -->
+	<select id="getByMap" resultType="role" parameterType="map">
+		SELECT 
+		<include refid="selectField"></include>
+		FROM 
+		<include refid="tableName"></include>
+		WHERE 1 = 1
+		<if test="id != null and id != ''">
+			AND id = #{id}
+		</if>
+		<if test="roleName != null and roleName != ''">
+			AND role_name = #{roleName}
+		</if>
+		limit 1
+	</select>
+	
+	<!-- 分页, 使用了pagehelper插件 -->
+	<select id="findPager" resultType="role" parameterType="role">
+		SELECT 
+		<include refid="selectField"></include>
+		FROM 
+		<include refid="tableName"></include>
+        WHERE 1 = 1
+        	<!-- AND id = #{id} -->
+        ORDER BY role_name asc
+	</select>
+	
+	<!-- 分页, 使用了pagehelper插件 -->
+	<select id="findPagerByMap" resultType="role" parameterType="map">
+		SELECT 
+		<include refid="selectField"></include>
+		FROM 
+		<include refid="tableName"></include>
+        WHERE 1 = 1
+        	<!-- AND id = #{id} -->
+        ORDER BY role_name asc
+	</select>
+	
+	<!-- insert -->
+	<insert id="insert" parameterType="role">
+		INSERT INTO 
+		<include refid="tableName"></include>
+		(
+		<include refid="addField"></include>
+		) VALUES (
+		<include refid="fieldValue"></include>
+		)
+	</insert>
+	
+	<!-- updateByEntity -->
+	<update id="update" parameterType="role">
+		UPDATE <include refid="tableName"></include>
+		SET
+			role_name = #{roleName}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<!-- updateByMap -->
+	<update id="updateByMap" parameterType="map">
+		UPDATE <include refid="tableName"></include>
+		SET
+			role_name = #{roleName}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="role">
+		DELETE FROM <include refid="tableName"></include>
+		WHERE
+			id = #{id}
+	</delete>
+	
+	<!-- batch delete -->
+	<delete id="batchDelete" parameterType="String">
+		DELETE FROM <include refid="tableName"></include>
+		WHERE
+			id in (${ids})
+	</delete>
+	
+</mapper>

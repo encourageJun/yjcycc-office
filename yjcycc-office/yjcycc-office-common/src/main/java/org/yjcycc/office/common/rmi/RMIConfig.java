@@ -46,6 +46,8 @@ public class RMIConfig {
 		office.add("org.yjcycc.office.api.BranchService");
 		office.add("org.yjcycc.office.api.DepartService");
 		office.add("org.yjcycc.office.api.MyNoteService");
+		office.add("org.yjcycc.office.api.UserService");
+		office.add("org.yjcycc.office.api.RoleService");
 		servicePathMap.put(office, ZkNodeConstant.BASE_OFFICE_PATH);
 		
 		if("devp".equals(SystemConfig.getEnviroment())){

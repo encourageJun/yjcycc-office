@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 import org.yjcycc.office.api.BranchService;
 import org.yjcycc.office.api.DepartService;
 import org.yjcycc.office.api.MyNoteService;
+import org.yjcycc.office.api.RoleService;
+import org.yjcycc.office.api.UserService;
 import org.yjcycc.office.common.constant.ZkNodeConstant;
 import org.yjcycc.office.common.tools.config.OfficeRmiConfig;
 import org.yjcycc.office.common.tools.config.SystemConfig;
@@ -59,6 +61,36 @@ public class OfficeServer extends AbstractZookeeperClientRegister implements Lif
 	@Override
 	public Charset getCharSetForZk() {
 		return ZkNodeConstant.CHARSET;
+	}
+	
+	/**
+	 * 注册rmi服务
+	 * @param index
+	 * @throws RemoteException
+	 * @throws ExportException
+	 */
+	private void registRmiService(int index) throws RemoteException ,ExportException {
+		if(index == 0){
+			//如果是重试模式，加载第0套配置
+			port = OfficeRmiConfig.getInstance().getPort0();
+		}else if(index == 1){
+			//如果非重试模式，加载第1套配置
+			port = OfficeRmiConfig.getInstance().getPort1();
+		} else if(index == 2){
+			//如果非重试模式，加载第2套配置
+			port = OfficeRmiConfig.getInstance().getPort2();
+		}  else{
+			throw new IllegalArgumentException("只支持0，1，2，共3套配置！不支持：" + index);
+		}
+		
+		// 曝露服务
+		RMIRegister register = new RMIRegister(port);
+		register.regist(MyNoteService.class, applicationContext.getBean(MyNoteService.class));
+		register.regist(BranchService.class, applicationContext.getBean(BranchService.class));
+		register.regist(DepartService.class, applicationContext.getBean(DepartService.class));
+		register.regist(UserService.class, applicationContext.getBean(UserService.class));
+		register.regist(RoleService.class, applicationContext.getBean(RoleService.class));
+		
 	}
 
 	@Override
@@ -104,34 +136,6 @@ public class OfficeServer extends AbstractZookeeperClientRegister implements Lif
 				isRun = false;
 			}
 		}
-	}
-	
-	/**
-	 * 注册rmi服务
-	 * @param index
-	 * @throws RemoteException
-	 * @throws ExportException
-	 */
-	private void registRmiService(int index) throws RemoteException ,ExportException {
-		if(index == 0){
-			//如果是重试模式，加载第0套配置
-			port = OfficeRmiConfig.getInstance().getPort0();
-		}else if(index == 1){
-			//如果非重试模式，加载第1套配置
-			port = OfficeRmiConfig.getInstance().getPort1();
-		} else if(index == 2){
-			//如果非重试模式，加载第2套配置
-			port = OfficeRmiConfig.getInstance().getPort2();
-		}  else{
-			throw new IllegalArgumentException("只支持0，1，2，共3套配置！不支持：" + index);
-		}
-		
-		// 曝露服务
-		RMIRegister register = new RMIRegister(port);
-		register.regist(MyNoteService.class, applicationContext.getBean(MyNoteService.class));
-		register.regist(BranchService.class, applicationContext.getBean(BranchService.class));
-		register.regist(DepartService.class, applicationContext.getBean(DepartService.class));
-		
 	}
 	
 	/**

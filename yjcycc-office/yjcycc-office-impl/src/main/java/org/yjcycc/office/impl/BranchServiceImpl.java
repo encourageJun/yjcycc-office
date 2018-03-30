@@ -13,7 +13,7 @@ public class BranchServiceImpl extends BaseServiceImpl<Branch> implements Branch
 	private BranchMapper branchMapper;
 	
 	@Autowired
-	public void initBaseMapper() {
+	private void initBaseMapper() {
 		setBaseMapper(branchMapper);
 	}
 	

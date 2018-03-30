@@ -15,7 +15,7 @@ public class DepartServiceImpl<T extends Depart> extends BaseServiceImpl<Depart>
 	
 	@SuppressWarnings("unchecked")
 	@Autowired
-	public void initBaseMapper() {
+	private void initBaseMapper() {
 		setBaseMapper(departMapper);
 	}
 	
