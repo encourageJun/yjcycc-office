@@ -16,6 +16,7 @@ import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Component;
 import org.yjcycc.office.api.BranchService;
 import org.yjcycc.office.api.DepartService;
+import org.yjcycc.office.api.FileInfoService;
 import org.yjcycc.office.api.MyNoteService;
 import org.yjcycc.office.api.RoleService;
 import org.yjcycc.office.api.UserService;
@@ -90,6 +91,7 @@ public class OfficeServer extends AbstractZookeeperClientRegister implements Lif
 		register.regist(DepartService.class, applicationContext.getBean(DepartService.class));
 		register.regist(UserService.class, applicationContext.getBean(UserService.class));
 		register.regist(RoleService.class, applicationContext.getBean(RoleService.class));
+		register.regist(FileInfoService.class, applicationContext.getBean(FileInfoService.class));
 		
 	}
 

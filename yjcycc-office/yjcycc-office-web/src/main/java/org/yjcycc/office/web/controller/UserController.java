@@ -222,7 +222,6 @@ public class UserController {
 	 * @return json
 	 * {
 	 *   status : 服务状态码
-	 *   user
 	 * }
 	 * @服务状态码
 	 * {
