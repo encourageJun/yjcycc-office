@@ -18,6 +18,7 @@ import org.yjcycc.office.api.BranchService;
 import org.yjcycc.office.api.DepartService;
 import org.yjcycc.office.api.FileInfoService;
 import org.yjcycc.office.api.MyNoteService;
+import org.yjcycc.office.api.RoleAuthorityService;
 import org.yjcycc.office.api.RoleService;
 import org.yjcycc.office.api.UserService;
 import org.yjcycc.office.common.constant.ZkNodeConstant;
@@ -92,6 +93,7 @@ public class OfficeServer extends AbstractZookeeperClientRegister implements Lif
 		register.regist(UserService.class, applicationContext.getBean(UserService.class));
 		register.regist(RoleService.class, applicationContext.getBean(RoleService.class));
 		register.regist(FileInfoService.class, applicationContext.getBean(FileInfoService.class));
+		register.regist(RoleAuthorityService.class, applicationContext.getBean(RoleAuthorityService.class));
 		
 	}
 

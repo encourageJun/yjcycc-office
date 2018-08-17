@@ -10,6 +10,7 @@
 	<context:annotation-config />
 	<context:component-scan base-package="org.yjcycc.office"/>
 	
+	<import resource="spring-shiro.xml"/>
 	<import resource="spring-mvc-servlet.xml"/>
 	<!-- <import resource="spring-dubbo-context.xml"/> -->
 	

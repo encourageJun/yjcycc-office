@@ -49,6 +49,7 @@ public class RMIConfig {
 		office.add("org.yjcycc.office.api.UserService");
 		office.add("org.yjcycc.office.api.RoleService");
 		office.add("org.yjcycc.office.api.FileInfoService");
+		office.add("org.yjcycc.office.api.RoleAuthorityService");
 		servicePathMap.put(office, ZkNodeConstant.BASE_OFFICE_PATH);
 		
 		if("devp".equals(SystemConfig.getEnviroment())){

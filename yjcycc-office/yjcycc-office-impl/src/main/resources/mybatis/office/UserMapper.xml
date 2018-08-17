@@ -100,6 +100,17 @@
         ORDER BY user_name asc
 	</select>
 	
+	<select id="findRoles" resultType="String" parameterType="map">
+		SELECT 
+			concat(role_id,'') AS roleId
+		FROM
+		<include refid="tableName"></include>
+        WHERE 1 = 1
+		<if test="userName != null and userName != ''">
+			AND user_name = #{userName}
+		</if>
+	</select>
+	
 	<!-- insert -->
 	<insert id="insert" parameterType="user">
 		INSERT INTO 
