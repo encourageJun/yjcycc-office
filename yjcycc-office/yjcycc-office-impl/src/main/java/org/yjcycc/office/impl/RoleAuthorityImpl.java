@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.yjcycc.office.api.RoleAuthorityService;
 import org.yjcycc.office.common.entity.RoleAuthority;
 import org.yjcycc.office.mapper.RoleAuthorityMapper;
+import org.yjcycc.tools.common.service.impl.BaseServiceImpl;
 
 @Service("roleAuthorityService")
 public class RoleAuthorityImpl extends BaseServiceImpl<RoleAuthority> implements RoleAuthorityService {

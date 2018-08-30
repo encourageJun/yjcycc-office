@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.yjcycc.office.common.entity.RoleAuthority;
+import org.yjcycc.tools.common.service.BaseService;
 
 public interface RoleAuthorityService extends BaseService<RoleAuthority> {
 
