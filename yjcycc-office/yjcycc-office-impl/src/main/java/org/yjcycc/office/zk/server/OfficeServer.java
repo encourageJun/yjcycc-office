@@ -29,8 +29,8 @@ import org.yjcycc.tools.common.util.SystemUtil;
 import org.yjcycc.tools.zk.model.ProducerConsumerEnum;
 import org.yjcycc.tools.zk.model.UsingIpPort;
 import org.yjcycc.tools.zk.model.XxNode;
+import org.yjcycc.tools.zk.rmi.RMIRegister;
 import org.yjcycc.tools.zk.server.AbstractZookeeperClientRegister;
-import org.yjcycc.tools.zk.server.rmi.RMIRegister;
 
 @Component
 public class OfficeServer extends AbstractZookeeperClientRegister implements Lifecycle, ApplicationContextAware ,InitializingBean {

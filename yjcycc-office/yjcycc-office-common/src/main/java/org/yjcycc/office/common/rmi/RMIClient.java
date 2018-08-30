@@ -1,5 +1,13 @@
 package org.yjcycc.office.common.rmi;
 
+import org.apache.log4j.Logger;
+import org.yjcycc.office.common.constant.ZkNodeConstant;
+import org.yjcycc.office.common.tools.config.ToolsConfig;
+import org.yjcycc.tools.zk.client.AbstractZookeeperClient;
+import org.yjcycc.tools.zk.model.UsingIpPort;
+import org.yjcycc.tools.zk.model.XxNode;
+import org.yjcycc.tools.zk.rmi.RMIRegister;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -12,14 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.apache.log4j.Logger;
-import org.yjcycc.office.common.constant.ZkNodeConstant;
-import org.yjcycc.office.common.tools.config.ToolsConfig;
-import org.yjcycc.tools.zk.client.AbstractZookeeperClient;
-import org.yjcycc.tools.zk.model.UsingIpPort;
-import org.yjcycc.tools.zk.model.XxNode;
-import org.yjcycc.tools.zk.server.rmi.RMIRegister;
 
 /**
  * RMI服务的客户端，用于获取远程服务；<br>
@@ -40,7 +40,7 @@ public class RMIClient {
 	/**
 	 * 获取远程服务；适用于RMI接口暴露的所有服务；可以当作本地方法一样访问
 	 * 
-	 * @param serviceName
+	 * @param className
 	 * @return
 	 */
 	@SuppressWarnings("unlikely-arg-type")
